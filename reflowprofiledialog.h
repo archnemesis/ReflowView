@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "reflowprofile.h"
+#include "reflowplot.h"
 
 class QDialogButtonBox;
 class QSpinBox;
@@ -14,6 +15,10 @@ class ReflowProfileDialog : public QDialog
 public:
     explicit ReflowProfileDialog(QWidget *parent = 0);
     ReflowProfile profile();
+    void done(int r);
+
+protected slots:
+    void inputChanged(int);
 
 protected:
     QSpinBox *m_rampToSoakRate;
@@ -24,6 +29,7 @@ protected:
     QSpinBox *m_rampCoolingRate;
     QLineEdit *m_profileName;
     QDialogButtonBox *m_buttonBox;
+    ReflowPlot *m_profilePlot;
 };
 
 #endif // REFLOWPROFILEDIALOG_H

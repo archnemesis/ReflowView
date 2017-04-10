@@ -115,3 +115,27 @@ void ReflowProfile::save()
     }
     settings.endArray();
 }
+
+QList<ReflowProfile> ReflowProfile::listProfiles()
+{
+    QSettings settings;
+    QList<ReflowProfile> profiles;
+
+    int size = settings.beginReadArray("profiles");
+    for (int i = 0; i < size; ++i) {
+        settings.setArrayIndex(i);
+
+        ReflowProfile profile;
+        profile.setName(settings.value("profileName").toString());
+        profile.setRampToSoakRate(settings.value("rampToSoakRate").toInt());
+        profile.setSoakTime(settings.value("soakTime").toInt());
+        profile.setSoakTemperature(settings.value("soakTemperature").toInt());
+        profile.setRampToPeakRate(settings.value("rampToPeakRate").toInt());
+        profile.setPeakTemperature(settings.value("peakTemperature").toInt());
+        profile.setRampCoolingRate(settings.value("rampCoolingRate").toInt());
+
+        profiles.append(profile);
+    }
+    settings.endArray();
+    return profiles;
+}

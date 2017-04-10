@@ -54,3 +54,8 @@ QSerialPortInfo ConnectionDialog::selectedPort()
 {
     return m_portList.at(m_cboPort->currentIndex());
 }
+
+int ConnectionDialog::selectedSpeed()
+{
+    return m_cboSpeed->currentText().toInt();
+}

@@ -2,6 +2,7 @@
 #define REFLOWPROFILE_H
 
 #include <QString>
+#include <QList>
 
 class ReflowProfile
 {
@@ -25,6 +26,8 @@ public:
     void setRampCoolingRate(int rate);
 
     void save();
+
+    static QList<ReflowProfile> listProfiles();
 
 protected:
     int m_rampToSoakRate;

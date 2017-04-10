@@ -14,6 +14,7 @@ class ConnectionDialog : public QDialog
 public:
     ConnectionDialog(QWidget *parent = 0);
     QSerialPortInfo selectedPort();
+    int selectedSpeed();
 
 protected:
     QComboBox *m_cboPort;

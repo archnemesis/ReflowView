@@ -33,7 +33,8 @@ SOURCES += main.cpp\
     reflowprofiledialog.cpp \
     reflowprofilelistdialog.cpp \
     reflowprofilelistitem.cpp \
-    connectiondialog.cpp
+    connectiondialog.cpp \
+    reflowprotocol.cpp
 
 HEADERS  += mainwindow.h \
     reflowplot.h \
@@ -42,6 +43,7 @@ HEADERS  += mainwindow.h \
     reflowprofiledialog.h \
     reflowprofilelistdialog.h \
     reflowprofilelistitem.h \
-    connectiondialog.h
+    connectiondialog.h \
+    reflowprotocol.h
 
 FORMS    +=

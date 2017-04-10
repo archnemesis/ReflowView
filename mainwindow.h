@@ -2,12 +2,15 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "reflowprotocol.h"
+#include "reflowprofile.h"
 
 class QLCDNumber;
 class QLabel;
 class QPushButton;
 class QMenu;
 class QAction;
+class QSerialPort;
 class ReflowPlot;
 
 class MainWindow : public QMainWindow
@@ -25,13 +28,27 @@ private slots:
     void profileOpen();
     void profileSave();
     void profileNew();
+    void profileUpload();
+
+    void startProgram();
+    void stopProgram();
+
+    void reflowStatusReceived(ReflowStatusPacket packet);
+    void serialPortReadyRead();
+    void serialPortReadyWrite(QByteArray &bytes);
 
 protected:
     void createActions();
     void createMenus();
+    void closeEvent(QCloseEvent *event);
+    void loadProfile(ReflowProfile &profile);
 
-    QMenu *m_menuFile;
-    QMenu *m_menuEdit;
+    ReflowProtocol *m_reflowProtocol;
+    ReflowProfile m_activeProfile;
+    QSerialPort *m_serialPort;
+
+    QMenu *m_menuOven;
+    QMenu *m_menuProfile;
     QMenu *m_menuHelp;
 
     QAction *m_actQuit;
@@ -40,6 +57,7 @@ protected:
     QAction *m_actProfileOpen;
     QAction *m_actProfileSave;
     QAction *m_actProfileNew;
+    QAction *m_actProfileUpload;
 
     QLCDNumber *m_lcdTemperature;
     QLCDNumber *m_lcdTimer;
@@ -50,6 +68,7 @@ protected:
     QLabel *m_lblStatus;
     QLabel *m_lblMode;
     QLabel *m_lblSelectedProfile;
+    QLabel *m_lblStatusBarText;
 
     ReflowPlot *m_plot;
 };

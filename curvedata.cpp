@@ -4,24 +4,25 @@
 CurveData::CurveData(ReflowProfile &profile) :
     m_profile(profile)
 {
-    int rampSoakTime = profile.soakTemperature() / profile.rampToSoakRate();
+    int ambient = 24;
+    int rampSoakTime = (profile.soakTemperature() - ambient) / profile.rampToSoakRate();
     int soakTime = profile.soakTime();
 
     for (int i = 0; i <= rampSoakTime; i++) {
-        m_profileData.append(QPointF(i, profile.rampToSoakRate() * i));
+        m_profileData.append(QPointF(i, ambient + (profile.rampToSoakRate() * i)));
     }
 
-    for (int i = 0; i <= soakTime; i++) {
+    for (int i = 1; i <= soakTime; i++) {
         m_profileData.append(QPointF(i + rampSoakTime, profile.soakTemperature()));
     }
 
     int peakTime = (profile.peakTemperature() - profile.soakTemperature()) / profile.rampToPeakRate();
-    for (int i = 0; i <= peakTime; i++) {
+    for (int i = 1; i <= peakTime; i++) {
         m_profileData.append(QPointF(i + rampSoakTime + soakTime, profile.soakTemperature() + (profile.rampToPeakRate() * i)));
     }
 
-    int coolTime = profile.peakTemperature() / profile.rampCoolingRate();
-    for (int i = 0; i <= coolTime; i++) {
+    int coolTime = (profile.peakTemperature() - ambient) / profile.rampCoolingRate();
+    for (int i = 1; i <= coolTime; i++) {
         m_profileData.append(
                     QPointF(
                         i + rampSoakTime + soakTime + peakTime,
